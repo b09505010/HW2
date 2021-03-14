@@ -1,1 +1,48 @@
+#include<stdio.h>
+#include<stdlib.h>
+#define student_num 10
 
+struct name{
+        char name[10];
+    };
+struct student_data{
+        struct name first_name;
+        struct name second_name;
+        int score;
+    };
+int cmpfunc (const void * a, const void * b)
+    {
+        struct student_data *x=(struct student_data*)a;
+        struct student_data *y=(struct student_data*)b;
+        return ( (x->score)-(y->score));
+    }
+
+int main(void){
+
+    struct name fdata[10]={"Smith","Taylor","Thomas","Johnson","Murphy","Morgan","Morris","Phillips","Allen","Owen"};
+    struct name sdata[10]={"Stephen","Phillip","Peter","Arthur","Kazma","Darkness","Eriri","Megumin","Aqua","Rushia"}; 
+    struct student_data student[student_num];
+        for(int i=0;i<student_num;i++){
+            student[i].first_name=fdata[(rand()%10)+1];
+            student[i].second_name=sdata[(rand()%10)+1];
+            student[i].score=(rand()%100)+1;
+        }
+        printf("-----grdae before sorting-----\n");
+        for(int i=0;i<student_num;i++){
+            printf("%s ",student[i].second_name.name);
+            printf("%s:",student[i].first_name.name);
+            printf("%d\n",student[i].score);
+        }
+        printf("------------------------------\n");
+        printf("-----grdae after sorting------\n");
+
+        qsort(student,10,sizeof(struct student_data),cmpfunc);
+
+        for(int i=0;i<student_num;i++){
+            printf("%s ",student[i].second_name.name);
+            printf("%s:",student[i].first_name.name);
+            printf("%d\n",student[i].score);
+        }
+
+        printf("------------------------------\n");
+}
